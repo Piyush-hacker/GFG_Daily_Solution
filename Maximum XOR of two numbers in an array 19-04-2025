@@ -1,0 +1,49 @@
+#Maximum XOR of two numbers in an array
+
+class Solution:
+    def maxXor(self, arr):
+        
+        class Trie:
+            def __init__(self):
+                self.bit_0 = None
+                self.bit_1 = None
+            
+            def insert(self, n):
+                node = self
+                mask = 1 << 31
+                while mask:
+                    if n & mask:
+                        if not node.bit_1:
+                            node.bit_1 = Trie()
+                        node = node.bit_1
+                    else:
+                        if not node.bit_0:
+                            node.bit_0 = Trie()
+                        node = node.bit_0
+                    mask >>= 1
+        
+        max_xor = 0
+        root = Trie()
+        root.insert(arr[0])
+        for a in arr[1:]:
+            mask = 1 << 31
+            new_xor = a
+            node = root
+            while mask and node:
+                if mask & a:
+                    if node.bit_0:
+                        node = node.bit_0
+                    else:
+                        node = node.bit_1
+                        new_xor ^= mask
+                else:
+                    if node.bit_1:
+                        node = node.bit_1
+                        new_xor |= mask
+                    else:
+                        node = node.bit_0
+                mask >>= 1
+            if new_xor > max_xor:
+                max_xor = new_xor
+            root.insert(a)
+        return max_xor
