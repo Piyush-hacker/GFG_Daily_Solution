@@ -1,0 +1,7 @@
+#Find Only Repetitive Element from 1 to n-1
+
+def findDuplicate(self, arr):
+        ans=arr[0]
+        for i in range(1,len(arr)):
+            ans^=(arr[i]^i)
+        return ans
