@@ -1,0 +1,8 @@
+#Unique Number I
+
+
+from functools import reduce
+class Solution:
+    def findUnique(self, arr):
+        # code here 
+        return reduce(lambda x, y: x ^ y, arr)
