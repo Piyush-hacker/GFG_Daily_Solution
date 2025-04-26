@@ -1,0 +1,30 @@
+#Is Binary Tree Heap
+
+class Solution:
+    #Your Function Should return True/False
+    def isHeap(self, root):
+        # code Here
+        def dfs(cur=root,prv=float('inf')):
+            if not cur:
+                return True
+            if cur.data>prv:
+                return False
+            return dfs(cur.left,cur.data) and dfs(cur.right,cur.data)
+        if not dfs():
+            return dfs()
+        def dfs(cur=root):
+            if not cur:
+                return True,0,0
+            lb,lx,ln=dfs(cur.left)
+            rb,rx,rn=dfs(cur.right)
+            if lb and rb:
+                if lx==ln and ln==rx and rx==rn:
+                    return True,lx+1,lx+1
+                if lx==ln and ln==rx and rx==rn+1:
+                    return True,lx+1,rn+1
+                if lx==ln and ln==rx+1 and rx==rn:
+                    return True,lx+1,rx+1
+                if lx==ln+1 and ln==rx and rx==rn:
+                    return True,lx+1,ln+1
+            return (False,)+tuple(sorted([lx,ln,rx,rn],reverse=True)[0:2])
+        return dfs()[0]
