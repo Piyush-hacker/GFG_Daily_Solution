@@ -1,0 +1,16 @@
+#Sort a linked list of 0s, 1s and 2s
+
+
+def segregate(self, head):
+        counts = [0] * 3
+        curr = head
+        while curr:
+            counts[curr.data] += 1
+            curr = curr.next
+        curr = head
+        for v in range(3):
+            while counts[v]:
+                curr.data = v
+                curr = curr.next
+                counts[v] -= 1
+        return head
