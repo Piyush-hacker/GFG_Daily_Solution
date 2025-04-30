@@ -1,0 +1,16 @@
+#Find length of Loop
+
+class Solution:
+    def countNodesInLoop(self, head):
+        visited = {}
+        temp = head
+        index = 0
+        
+        while temp:
+            if temp in visited:
+                return index - visited[temp]
+            visited[temp] = index
+            temp = temp.next
+            index += 1
+        
+        return 0
