@@ -1,17 +1,54 @@
-from collections import deque
 class Solution:
+
     def catchThieves(self, arr, k):
-        #code  here
-        police = deque([i for i,person in enumerate(arr) if person=='P'])
-        theives = deque([i for i,person in enumerate(arr) if person=='T'])
-        count = 0
-        while len(police) and len(theives):
-            if abs(theives[0]-police[0]) <= k:
-                count += 1
-                theives.popleft()
-                police.popleft()
-            elif theives[0] < police[0]:
-                theives.popleft()
+
+        police = []
+
+        thief = []
+
+ 
+
+        # Store indices of policemen and thieves
+
+        for i in range(len(arr)):
+
+            if arr[i] == 'P':
+
+                police.append(i)
+
             else:
-                police.popleft()
+
+                thief.append(i)
+
+ 
+
+        i = j = 0
+
+        count = 0
+
+ 
+
+        # Two-pointer approach
+
+        while i < len(police) and j < len(thief):
+
+            if abs(police[i] - thief[j]) <= k:
+
+                count += 1
+
+                i += 1
+
+                j += 1
+
+            elif thief[j] < police[i]:
+
+                j += 1
+
+            else:
+
+                i += 1
+
+ 
+
         return count
+
