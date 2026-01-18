@@ -1,19 +1,15 @@
+from collections import Counter
 class Solution:
-    def findGreater(self, arr):
-        # code here
-        n = len(arr)
-        freq = {}
-    
-        for num in arr:
-            freq[num] = freq.get(num, 0) + 1
-    
-        res = [-1] * n
-        s = []
-    
-        for i in range(n):
-            
-            while s and freq[arr[i]] > freq[arr[s[-1]]]:
-                res[s.pop()] = arr[i]
-            s.append(i)
-    
-        return res
+    def nextFreqGreater(self, arr):
+        dic=Counter(arr)
+        ans=[]
+        stack=[]
+        for i in arr[::-1]:
+            while stack and stack[-1][0]<=dic[i]:
+                stack.pop()
+            if stack:
+                ans.append(stack[-1][1])
+            else:
+                ans.append(-1)
+            stack.append([dic[i],i])
+        return ans[::-1]
