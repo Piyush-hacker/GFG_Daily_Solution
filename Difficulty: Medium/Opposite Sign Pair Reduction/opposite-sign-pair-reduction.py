@@ -1,0 +1,14 @@
+class Solution:
+    def reducePairs(self, arr):
+        stk=[]
+        for ve in arr:
+            cur=ve
+            while stk and (stk[-1]<0<cur or stk[-1]>0>cur):
+                cand=stk.pop()
+                if abs(cand)==abs(cur):
+                    cur=None
+                    break
+                cur=max([cur,cand],key=lambda x:abs(x))
+            if cur!=None:
+                stk.append(cur)
+        return stk
